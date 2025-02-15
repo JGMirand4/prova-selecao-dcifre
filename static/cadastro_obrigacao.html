@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Obrigações Acessórias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Obrigações Acessórias</h1>
+        <form id="form">
+            <input type="text" id="nome" placeholder="Nome da Obrigação" required>
+            <input type="text" id="periodicidade" placeholder="Periodicidade" required>
+            <input type="number" id="empresa_id" placeholder="ID da Empresa" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+    
+    <script>
+        document.getElementById("form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            let nome = document.getElementById("nome").value;
+            let periodicidade = document.getElementById("periodicidade").value;
+            let empresa_id = parseInt(document.getElementById("empresa_id").value);
+
+            const response = await fetch("/obrigacoes/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome, periodicidade, empresa_id })
+            });
+
+            if (response.ok) {
+                alert("Obrigação acessória cadastrada com sucesso!");
+                document.getElementById("form").reset();
+            } else {
+                alert("Erro ao cadastrar. Verifique os dados e tente novamente.");
+            }
+        });
+    </script>
+</body>
+</html>

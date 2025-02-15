@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listagem de Empresas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Listagem de Empresas</h1>
+  <table id="empresas-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CNPJ</th>
+        <th>E-mail</th>
+        <th>Endereço</th>
+        <th>Telefone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Os dados serão inseridos aqui via JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchEmpresas() {
+      try {
+        const response = await fetch("/empresas/");
+        if (response.ok) {
+          const data = await response.json();
+          const tbody = document.querySelector("#empresas-table tbody");
+          tbody.innerHTML = "";
+          data.forEach(empresa => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${empresa.id}</td>
+              <td>${empresa.nome}</td>
+              <td>${empresa.cnpj}</td>
+              <td>${empresa.email}</td>
+              <td>${empresa.endereco}</td>
+              <td>${empresa.telefone}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        } else {
+          console.error("Erro ao buscar empresas");
+        }
+      } catch (error) {
+        console.error("Erro:", error);
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", fetchEmpresas);
+  </script>
+</body>
+</html>
