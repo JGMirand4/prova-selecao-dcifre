@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
+# SCHEMAS
 class EmpresaBase(BaseModel):
     nome: str
     cnpj: str

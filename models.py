@@ -2,6 +2,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
+
+# MODELS
 class Empresa(Base):
     __tablename__ = "empresas"
 
